@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { HolaComponent } from './hola/hola.component';
-
 
 @Component({
   selector: 'app-hola',
-  imports: [HolaComponent],
+  standalone: true,
+  imports: [],
   templateUrl: './hola.component.html',
   styleUrl: './hola.component.css'
 })

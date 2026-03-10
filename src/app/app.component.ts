@@ -4,7 +4,7 @@ import { HolaComponent } from './hola/hola.component';
 
 @Component({
   selector: 'app-root',
-  imports: [HolaComponent],
+  imports: [HolaComponent, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
