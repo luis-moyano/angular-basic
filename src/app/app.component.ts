@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HolaComponent } from './hola/hola.component';
 
 @Component({
   selector: 'app-root',
-  imports: [HolaComponent, RouterOutlet],
+  imports: [
+    RouterOutlet
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

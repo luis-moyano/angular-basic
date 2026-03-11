@@ -1,0 +1,166 @@
+ :host {
+    background-color: rgb(10, 24, 97);
+    color: #aeb7c2;
+    font-size: 15px;
+    text-decoration: none !important;
+    position: fixed;
+    top: 70px;
+    left: 0;
+    height: calc(100vh - 70px);
+    width: 260px;
+    overflow-y: auto;
+    z-index: 100;
+}
+
+.header {
+    height: 57px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    padding-left: 20px;
+    align-items: center;
+    color: white;
+    border-bottom: 1px solid #4b545c;
+}
+
+.header img {
+    width: 33px;
+    height: 33px;
+    box-shadow: rgba(0, 0, 0, 0.19) 0 10px 20px 0, rgba(0, 0, 0, 0.23) 0 6px 6px 0;
+    margin-right: 10px;
+    opacity: 0.8;
+}
+
+.header .title {
+    color:  rgb(10, 24, 97);
+    font-size: 18px;
+    transition-duration: 0.3s;
+    transition-property: margin-left, opacity, visibility;
+    transition-timing-function: linear, ease, ease;
+}
+
+.header .title.collapsed {
+    visibility: hidden;
+}
+
+a.nav-link {
+    color: #aeb7c2 !important;
+    padding-left: 36px;
+}
+
+a.nav-link.collapsed {
+    padding-left: 26px;
+}
+
+a.nav-link.collapsed > ul > li > a {
+    padding-left: 18px !important;
+}
+
+p-accordionTab {
+    margin: 10px 0 10px 35px;
+    font-size: 16px;
+}
+
+.p-accordion-toggle-icon {
+    margin-right: 10px;
+}
+
+.busquedaPersona {
+    color: #aeb7c2 !important;
+}
+
+.user-panel {
+    padding-bottom: 0 !important;
+}
+
+.accordion-informe{
+    margin-left: -27px;
+}
+
+.accordion-administracion{
+    margin-left: -27px;
+}
+
+.space-menu{
+    margin-top: 10px !important;
+    margin-bottom: 1px !important;
+    height: 30px !important;
+    padding-top: 1px !important;
+    padding-bottom: 1px !important;    
+}
+
+.space-submenu{
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    padding-bottom: 1px !important;
+    height: 30px !important;
+}
+
+.ico-menu {
+    height: 3px !important;    
+    max-width: 200px;    
+}
+
+.ico-item {
+    width: 30px;
+}
+
+fa-icon{
+    height: 30px !important;
+}
+
+.p-accordion-header{
+    padding-top: 1px!important;
+    padding-bottom: 1px!important;
+}
+
+p-accordiontab{
+    font-size: 15px;
+}
+
+.menu-informe{
+    margin-top: 1px!important;
+    margin-bottom: 1px!important;
+    padding-top: 1px !important;
+    padding-bottom: 1px !important;
+}
+
+.menu-administracion{
+    margin-top: 1px!important;
+    margin-bottom: 1px!important;
+    padding-top: 1px !important;
+    padding-bottom: 1px !important;
+}
+
+.menu-link {
+    text-decoration: none !important;
+    color: white;    
+    display: inline-flex;
+    align-items: center;
+    padding-left: 20px;
+    font-family: Robot2o, sans-serif !important;
+    font-size: 13px;
+}
+
+.info a:hover{
+    width: 220px;
+    color: grey;
+    top: 50%;
+    right: 1px;    
+    transition: color 0.1s;
+    
+}
+
+.nav-item {
+    width: 250px !important;
+    font-family: Roboto, sans-serif !important;
+    font-size: 14px;
+}
+
+.nav-item-selected {
+    width: 250px !important;
+    font-family: Roboto, sans-serif !important;
+    background-color:  rgba(49, 49, 194, 0.6) !important;
+    font-size: 14px;
+    color: black;
+}
