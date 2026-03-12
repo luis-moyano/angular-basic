@@ -1,55 +1,99 @@
 
-
 <div class="container py-5">
-  <div class="mb-4">
-    <h2 class="fw-semibold">Universidades</h2>
-    <p class="text-muted">Universidades por pa&iacute;s</p>
+
+  <!-- Header -->
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <div>
+      <h2 class="fw-bold mb-0">Universidades</h2>
+      <p class="text-muted mb-0">Search universities by country</p>
+    </div>
+    @if (universities.length > 0) {
+      <span class="badge bg-primary rounded-pill fs-6">{{ universities.length }} universidades</span>
+    }
   </div>
 
-    <div class="row g-2 mb-4">
-      <div class="col-sm-8 col-md-5">
+  <!-- Search bar -->
+  <div class="row mb-4">
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="input-group shadow-sm">
+        <span class="input-group-text bg-white border-end-0">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search text-muted" viewBox="0 0 16 16">
+            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.099zm-5.242 1.156a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11"/>
+          </svg>
+        </span>
         <input
           type="text"
-          class="form-control"
-          placeholder="Ingrese país(ej. Chile)"
+          class="form-control border-start-0 border-end-0"
+          placeholder="Enter country (e.g. Chile)"
           [(ngModel)]="country"
           (keyup.enter)="getUniversities()"
         />
-      </div>
-      <div class="col-auto">
-        <button class="btn btn-primary" (click)="getUniversities()">Buscar</button>
+        <button class="btn btn-primary px-3" type="button" (click)="applyFilter()">
+          Buscar
+        </button>
+        @if (country) {
+          <button class="btn btn-outline-secondary" type="button" (click)="clearSearch()" title="Clear">
+            &times;
+          </button>
+        }
       </div>
     </div>
+  </div>
 
-    @if ( universities.length > 0) {
-    <div class="table-responsive">
-      <table class="table table-borderless align-middle">
-        <thead class="border-bottom">
-          <tr class="text-muted small text-uppercase">
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Domain</th>
-            <th scope="col">Website</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let university of universities; let i = index" class="border-bottom">
-            <td class="text-muted">{{ i + 1 }}</td>
-            <td class="fw-medium">{{ university.name }}</td>
-            <td class="text-muted">{{ university.domains?.[0] ?? '—' }}</td>
-            <td>
-              <a
-                *ngIf="university.web_pages?.[0]"
-                [href]="university.web_pages[0]"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-decoration-none text-primary small"
-              >{{ university.web_pages[0] }}</a>
-              <span *ngIf="!university.web_pages?.[0]" class="text-muted">—</span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+  <!-- No results -->
+  @if (!isLoading && hasSearched && universities.length === 0) {
+    <div class="text-center py-5 text-muted">
+      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-search mb-3 d-block mx-auto opacity-25" viewBox="0 0 16 16">
+        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.099zm-5.242 1.156a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11"/>
+      </svg>
+      <p class="fs-5">No universities found for <strong>"{{ lastSearch }}"</strong></p>
+      <button class="btn btn-outline-secondary btn-sm" (click)="clearSearch()">Clear search</button>
     </div>
   }
+
+  <!-- Table -->
+  @if (!isLoading && universities.length > 0) {
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col" class="ps-4" style="width: 60px;">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Dominio</th>
+                <th scope="col">País</th>
+                <th scope="col">Sitio web</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (university of universities; track university.name; let i = $index) {
+                <tr>
+                  <td class="ps-4 text-muted">{{ i + 1 }}</td>
+                  <td class="fw-semibold">{{ university.name }}</td>
+                  <td class="text-muted">{{ university.domains[0] || '—' }}</td>
+                  <td>
+                    <span class="badge rounded-pill bg-primary">{{ university.country }}</span>
+                  </td>
+                  <td>
+                    @if (university.web_pages[0]) {
+                      <a
+                        [href]="university.web_pages[0]"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-decoration-none text-primary small"
+                      >{{ university.web_pages[0] }}</a>
+                    } @else {
+                      <span class="text-muted">—</span>
+                    }
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  }
+
 </div>

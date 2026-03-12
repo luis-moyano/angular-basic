@@ -1,44 +1,41 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Country } from '../../interfaces/country.interface';
 import { CountryService } from '../../services/country.service';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'travel-country',
-  imports: [NgClass, FormsModule],
+  imports: [
+    NgClass, 
+    FormsModule,
+    ButtonModule
+  ],
   templateUrl: './country.component.html',
   styleUrl: './country.component.css'
 })
-export class CountryComponent implements OnInit {
+export class CountryComponent {
 
-  countries: any[] = [];
-  filteredCountries: any[] = [];
+  countries: Country[] = [];
   filterText = '';
+  isLoading = false;
 
   // Services
   private readonly countryService = inject(CountryService);
 
-  ngOnInit(): void {
-      this.getCountries();
-  }
-
   getCountries(): void {
     this.countryService.getAllCountries().subscribe(data => {
       this.countries = data;
-      this.filteredCountries = data;
     });
   }
 
   applyFilter(): void {
-    const term = this.filterText.trim().toLowerCase();
-    this.filteredCountries = term
-      ? this.countries.filter(c => c.name.common.toLowerCase().includes(term))
-      : [...this.countries];
+    this.getCountryByName();
   }
 
   clearFilter(): void {
     this.filterText = '';
-    this.filteredCountries = [...this.countries];
   }
 
   regionBadge(region: string): string {
@@ -53,10 +50,12 @@ export class CountryComponent implements OnInit {
     return map[region] ?? 'bg-secondary';
   }
 
-  getCountryByName(name: string): void {
-    this.countryService.getCountryByName(name).subscribe(data => {
-      console.log(data);
+  getCountryByName(): void {
+    this.isLoading = true;
+    this.countryService.getCountryByName(this.filterText).subscribe(data => {
+      this.countries = data;
+      this.isLoading = false;
     });
   }
-
+  
 }

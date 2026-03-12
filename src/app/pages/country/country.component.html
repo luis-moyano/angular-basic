@@ -1,12 +1,12 @@
-<div class="container-fluid py-4">
+<div class="container py-5">
 
   <!-- Header -->
   <div class="d-flex align-items-center justify-content-between mb-4">
     <div>
-      <h2 class="fw-bold mb-0">Countries</h2>
+      <h2 class="fw-bold mb-0">Paises</h2>
       <p class="text-muted mb-0">List of countries from the REST Countries API</p>
     </div>
-    <span class="badge bg-primary rounded-pill fs-6">{{ filteredCountries.length }} countries</span>
+    <span class="badge bg-primary rounded-pill fs-6">{{ countries.length }} paises</span>
   </div>
 
   <!-- Search bar -->
@@ -25,8 +25,11 @@
           [(ngModel)]="filterText"
           (keyup.enter)="applyFilter()"
         />
-        <button class="btn btn-primary px-3" type="button" (click)="applyFilter()">
-          Search
+        <button class="btn btn-primary px-3" type="button" (click)="applyFilter()" [disabled]="isLoading">
+          @if (isLoading) {
+            <span class="spinner-border spinner-border-sm me-1" aria-hidden="true"></span>
+          }
+          Buscar
         </button>
         @if (filterText) {
           <button class="btn btn-outline-secondary" type="button" (click)="clearFilter()" title="Clear">
@@ -37,27 +40,8 @@
     </div>
   </div>
 
-  <!-- Loading state -->
-  @if (countries.length === 0) {
-    <div class="d-flex justify-content-center align-items-center py-5">
-      <div class="spinner-border text-primary me-3" aria-hidden="true"></div>
-      <span class="text-muted fs-5">Loading countries...</span>
-    </div>
-  }
-
-  <!-- No results -->
-  @if (countries.length > 0 && filteredCountries.length === 0) {
-    <div class="text-center py-5 text-muted">
-      <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-search mb-3 d-block mx-auto opacity-25" viewBox="0 0 16 16">
-        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.099zm-5.242 1.156a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11"/>
-      </svg>
-      <p class="fs-5">No countries match <strong>"{{ filterText }}"</strong></p>
-      <button class="btn btn-outline-secondary btn-sm" (click)="clearFilter()">Clear filter</button>
-    </div>
-  }
-
   <!-- Table -->
-  @if (filteredCountries.length > 0) {
+  @if (countries.length > 0) {
     <div class="card shadow-sm border-0">
       <div class="card-body p-0">
         <div class="table-responsive">
@@ -65,19 +49,19 @@
             <thead class="table-dark">
               <tr>
                 <th scope="col" class="ps-4" style="width: 60px;">#</th>
-                <th scope="col" style="width: 70px;">Flag</th>
-                <th scope="col">Country</th>
+                <th scope="col" style="width: 70px;">Bandera</th>
+                <th scope="col">País</th>
                 <th scope="col">Capital</th>
-                <th scope="col">Region</th>
+                <th scope="col">Región</th>
               </tr>
             </thead>
             <tbody>
-              @for (country of filteredCountries; track country.name.common; let i = $index) {
+              @for (country of countries; track country.name.common; let i = $index) {
                 <tr>
                   <td class="ps-4 text-muted">{{ i + 1 }}</td>
                   <td>
                     <img
-                      [src]="country.flags?.svg || country.flags?.png"
+                      [src]="country.flags.svg || country.flags.png"
                       [alt]="country.name.common + ' flag'"
                       width="40"
                       height="27"
@@ -87,7 +71,7 @@
                   </td>
                   <td class="fw-semibold">{{ country.name.common }}</td>
                   <td class="text-muted">
-                    @if (country.capital?.length > 0) {
+                    @if (country.capital && country.capital.length > 0) {
                       {{ country.capital[0] }}
                     } @else {
                       <span class="badge bg-secondary">N/A</span>

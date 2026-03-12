@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { University } from '../../interfaces/university.interface';
 import { UniversityService } from '../../services/university.service';
 
@@ -13,23 +13,37 @@ import { UniversityService } from '../../services/university.service';
   templateUrl: './university.component.html',
   styleUrl: './university.component.css'
 })
-export class UniversityComponent implements OnInit {
+export class UniversityComponent {
 
   universities: University[] = [];
   country: string = '';
   countries: any[] = [];
+  isLoading = false;
+  hasSearched = false;
+  lastSearch = '';
 
   // Service
   private readonly universityService = inject(UniversityService);
 
-  ngOnInit(): void {
-    this.getUniversities();    
-  }
+  applyFilter(): void {
+    this.getUniversities();
+  } 
 
   getUniversities(): void {
+    this.isLoading = true;
+    this.hasSearched = true;
+    this.lastSearch = this.country;
     this.universityService.getUniversities(this.country).subscribe(data => {
       this.universities = data;
+      this.isLoading = false;
     });
   }
-  
+
+  clearSearch(): void {
+    this.country = '';
+    this.universities = [];
+    this.hasSearched = false;
+    this.lastSearch = '';
+  }
+
 }
