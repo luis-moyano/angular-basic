@@ -17,18 +17,19 @@ export class UniversityComponent implements OnInit {
 
   universities: University[] = [];
   country: string = '';
+  countries: any[] = [];
 
   // Service
   private readonly universityService = inject(UniversityService);
 
   ngOnInit(): void {
-    this.getUniversities();
+    this.getUniversities();    
   }
 
   getUniversities(): void {
     this.universityService.getUniversities(this.country).subscribe(data => {
       this.universities = data;
     });
-  }  
-
+  }
+  
 }

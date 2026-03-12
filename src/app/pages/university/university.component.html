@@ -2,8 +2,8 @@
 
 <div class="container py-5">
   <div class="mb-4">
-    <h2 class="fw-semibold">Universities</h2>
-    <p class="text-muted">Search universities by country</p>
+    <h2 class="fw-semibold">Universidades</h2>
+    <p class="text-muted">Universidades por pa&iacute;s</p>
   </div>
 
     <div class="row g-2 mb-4">
@@ -11,13 +11,13 @@
         <input
           type="text"
           class="form-control"
-          placeholder="Enter country (e.g. Chile)"
+          placeholder="Ingrese país(ej. Chile)"
           [(ngModel)]="country"
           (keyup.enter)="getUniversities()"
         />
       </div>
       <div class="col-auto">
-        <button class="btn btn-primary" (click)="getUniversities()">Search</button>
+        <button class="btn btn-primary" (click)="getUniversities()">Buscar</button>
       </div>
     </div>
 
