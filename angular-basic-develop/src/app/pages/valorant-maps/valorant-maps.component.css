@@ -1,0 +1,153 @@
+.valorant-maps-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+  padding: 40px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.maps-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.maps-title {
+  font-size: 42px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+.maps-subtitle {
+  font-size: 16px;
+  color: #666;
+  margin: 10px 0 0 0;
+  font-weight: 400;
+  letter-spacing: 0.3px;
+}
+
+.maps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.map-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.map-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.map-image-wrapper {
+  width: 100%;
+  height: 220px;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.map-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.map-card:hover .map-image {
+  transform: scale(1.05);
+}
+
+.map-info {
+  padding: 20px;
+}
+
+.map-name {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 12px 0;
+}
+
+.map-coordinates {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.coordinates-label {
+  font-weight: 500;
+  color: #888;
+}
+
+.coordinates-value {
+  color: #555;
+  font-weight: 400;
+}
+
+.loading-state {
+  text-align: center;
+  padding: 80px 20px;
+  color: #999;
+  font-size: 16px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .valorant-maps-container {
+    padding: 30px 15px;
+  }
+
+  .maps-header {
+    margin-bottom: 40px;
+  }
+
+  .maps-title {
+    font-size: 32px;
+  }
+
+  .maps-subtitle {
+    font-size: 14px;
+  }
+
+  .maps-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+
+  .map-image-wrapper {
+    height: 180px;
+  }
+
+  .map-info {
+    padding: 16px;
+  }
+
+  .map-name {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .maps-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .maps-title {
+    font-size: 28px;
+  }
+}

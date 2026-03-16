@@ -1,0 +1,30 @@
+<div class="valorant-maps-container">
+  <div class="maps-header">
+    <h1 class="maps-title">Valorant Maps</h1>
+    <p class="maps-subtitle">Explore all competitive maps</p>
+  </div>
+
+  <div class="maps-grid" *ngIf="maps.length > 0">
+    <div class="map-card" *ngFor="let map of maps">
+      <div class="map-image-wrapper">
+        <img 
+          class="map-image" 
+          [src]="map.splash" 
+          [alt]="map.displayName"
+        />
+      </div>
+      
+      <div class="map-info">
+        <h2 class="map-name">{{ map.displayName }}</h2>
+        <p class="map-coordinates">
+          <span class="coordinates-label">📍 Location:</span>
+          <span class="coordinates-value">{{ map.coordinates }}</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="loading-state" *ngIf="maps.length === 0">
+    <p>Loading maps...</p>
+  </div>
+</div>

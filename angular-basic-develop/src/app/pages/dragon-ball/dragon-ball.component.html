@@ -1,0 +1,59 @@
+<div class="dragonball-container">
+  <div class="header-section">
+    <h1 class="title">⚡ Personajes de Dragon Ball ⚡</h1>
+    <p class="subtitle">Descubre todos los guerreros del universo</p>
+    
+    <div class="search-container">
+      <input
+        type="text"
+        class="search-input"
+        [(ngModel)]="searchTerm"
+        placeholder="🔍 Buscar personaje por nombre..."
+        aria-label="Buscar personajes"
+      />
+       <div class="col-auto">
+        <button class="btn btn-primary" (click)="applyFilters(searchTerm)">Buscar</button>
+      </div>
+      <span class="search-result-count" *ngIf="searchTerm.trim()">
+        {{ characters.length }} resultado(s)
+      </span>
+    </div>
+  </div>
+
+  <div class="characters-grid" *ngIf="characters && characters.length > 0">
+    <div class="character-card" *ngFor="let character of characters">
+      <div class="card-image-wrapper">
+        <img
+          class="character-image"
+          [src]="character.image"
+          [alt]="character.name"
+        />
+      </div>
+
+      <div class="character-info">
+        <h2 class="character-name">{{ character.name }}</h2>
+        <div class="character-details">
+          <div class="detail-item">
+            <span class="label">Raza:</span>
+            <span class="value">{{ character.race }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Género:</span>
+            <span class="value">{{ character.gender }}</span>
+          </div>
+          <div class="detail-item ki-item">
+            <span class="label">Ki:</span>
+            <span class="value ki-value">{{ character.ki }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ 
+
+  <div class="no-results" *ngIf="characters && characters.length === 0 && searchTerm.trim()">
+    <p>😔 No se encontraron personajes con "{{ searchTerm }}"</p>
+    <p class="hint">Intenta con otro nombre</p>
+  </div>
+</div>
